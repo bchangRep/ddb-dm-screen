@@ -9,22 +9,26 @@
 // @grant        none
 // ==/UserScript==
 var $ = window.jQuery;
-class Stat {
+class Stat
+{
   // class methods
-  constructor(value, prof) {
+  constructor(value, prof)
+    {
       this.value = parseInt(value);
       this.saveProficiency = false;
       this.saveBonus = 0;
       this.prof = parseInt(prof);
-  };
-    bonus() {
+    };
+    bonus()
+    {
         var b = 0;
         if (this.value <= 1) {b = "-5";}
         else {b = Math.floor((this.value - 10)/2);}
         if (b < 0) {return b.toString();}
         else {return '+' + b;};
     };
-    savingThrow() {
+    savingThrow()
+    {
         var ret = parseInt(this.bonus()) + this.saveBonus;
         if (this.saveProficiency) {ret += this.prof;}
         if (ret <= 0) {return ret;}
@@ -32,20 +36,25 @@ class Stat {
     };
 };
 
-class Skill {
-    constructor(name, prof, type) {
+class Skill
+{
+    constructor(name, prof, type)
+    {
         this.name = name;
         this.attr = this.getAttr(name);
         this.prof = parseInt(prof);
         this.passiveBonus = 0;
         this.setProf(type);
     };
-    setProf(type) {
+    setProf(type)
+    {
         if (type == "proficiency") {this.proficiency = true;};
         if (type == "expertise") {this.proficiency = true; this.expertise = true;};
     };
-    getAttr(name) {
-        switch(name) {
+    getAttr(name)
+    {
+        switch(name)
+        {
             case 'deception': return 'cha'; break;
             case 'intimidation': return 'cha'; break;
             case 'performance': return 'cha'; break;
@@ -67,7 +76,8 @@ class Skill {
             default: return "none"
         };
     };
-    getPassive(attrArray) {
+    getPassive(attrArray)
+    {
         let passv = 10 + parseInt(this.bonus(attrArray))+this.passiveBonus;
         return passv;
     };
@@ -80,7 +90,8 @@ class Skill {
     }
 };
 
-(function() {
+(function()
+ {
     'use strict';
 
     // Your code here...
@@ -89,15 +100,19 @@ class Skill {
     var characterData = [];
     //console.log(characterJSON);
     $('.ddb-campaigns-character-card-footer-links-item-view').each(
-        function(index, value) {
+        function(index, value)
+        {
             //if not ddb-campaigns-detail-body-listing-inactive
-            if (!($(this).parents().hasClass('ddb-campaigns-detail-body-listing-inactive'))) {
+            if (!($(this).parents().hasClass('ddb-campaigns-detail-body-listing-inactive')))
+            {
                 var charLink = $(this);
                 var charString = $(this).attr('href')+"/json";
                 //console.log(charString);
                 var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
                         var x = JSON.parse(this.responseText).character;
                         var character = new Object();
                         // assign character data
