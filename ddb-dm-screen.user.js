@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         ddb-dm-screen
-// @namespace    https://github.com/mivalsten/ddb-dm-screen
+// @namespace    https://github.com/bchangRep/ddb-dm-screen
+// @Orginalnamespace    https://github.com/mivalsten/ddb-dm-screen
 // @version      1.2.4
 // @description  Poor man's DM screen for DDB campaigns
 // @author       You
@@ -168,6 +169,12 @@ class Stat {
                             if (y.type == 'bonus' && y.subType == 'hit-points-per-level' && y.id.includes('feat')) {character.bonusHP += character.level * y.value;};
 
                         }; // end for
+                        var money = x.currencies;
+                        var copper = money.cp;
+                        var silver = money.sp;
+                        var gold = money.gp;
+                        var platnium = money.pp;
+                        var electrum = money.ep;
 
                         if (x.overrideHitPoints == null) {character.maxHP = character.bonusHP + x.baseHitPoints + x.bonusHitPoints + (character.level * parseInt(character.stats.con.bonus()));}
                         else {character.maxHP = x.overrideHitPoints;}
@@ -203,6 +210,11 @@ class Stat {
                         $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Charisma</td><td>'+ character.stats.cha.value + '</td><td>' + character.stats.cha.bonus() + '</td><td>' + character.stats.cha.savingThrow(character.proficiency) + '</td></tr>');
                         $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Passsive Perception</td><td>'+ passPercep + '</td></tr>');
                         $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Passsive Investigation</td><td>'+ passInvest + '</td></tr>');
+                        $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Copper</td><td>'+ copper + '</td></tr>');
+                        $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Silver</td><td>'+ silver + '</td></tr>');
+                        $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Gold</td><td>'+ gold + '</td></tr>');
+                        $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Platnium</td><td>'+ platnium + '</td></tr>');
+                        $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>Electrum</td><td>'+ electrum + '</td></tr>');
                         $('#character-details-'+character.name.replace(/[^0-9a-zA-Z]+/g, '')+' > tbody:last-child').append('<tr><td>HP</td><td>'+ character.currentHP + '/' + character.maxHP + '</td><td></td><td></td></tr>');
                     }
                  };
